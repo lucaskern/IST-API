@@ -1,4 +1,14 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+$( document ).ready(function() {
+  $(".uMinor").click(function() {
+    $(".desc").toggle();
+    console.log("clicked");
+  });
+
+  console.log("jQuery loaded");
+});
+
+},{}],2:[function(require,module,exports){
 /*
 loader.js
 variable 'app' is in global scope - i.e. a property of window.
@@ -9,13 +19,15 @@ the game will be properties of app.
 "use strict";
 
 const main = require('./main.js');
+const controls = require('./controls.js');
 
 window.addEventListener('load', function () {
   console.log("window.onload ran");
     let run = main.init();
+    
 })
 
-},{"./main.js":2}],2:[function(require,module,exports){
+},{"./controls.js":1,"./main.js":3}],3:[function(require,module,exports){
 'use strict'
 const app = {
   api_URL: "http://ist.rit.edu/api/",
@@ -25,9 +37,13 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
-    this.getData("about");
+    //this.getData("about");
 
-    this.getData("degrees");
+    //this.getData("degrees");
+
+    //this.getData("minors");
+
+    this.getData("employment");
   },
 
   controls() {
@@ -57,11 +73,11 @@ const app = {
       url: url,
       data: null,
       success: function(obj) {
-          thisRef.jsonLoaded(obj, key);
+        thisRef.jsonLoaded(obj, key);
       },
       error: function() {
-            console.log('Error occured with ' + key);
-        }
+        console.log('Error occured with ' + key);
+      }
     });
   },
 
@@ -71,19 +87,25 @@ const app = {
     console.log("obj stringified = " + JSON.stringify(obj));
     //console.log(obj.title);
 
-    switch(key) {
+    switch (key) {
       case "about":
         this.about(obj);
         break;
       case "degrees":
         this.degrees(obj);
         break;
+      case "minors":
+        this.minors(obj);
+        break;
+      case "employment":
+        this.employment(obj);
+        break;
     }
 
   },
 
-//generate about section
-  about(obj){
+  //generate about section
+  about(obj) {
     let masterEl = document.createElement("div");
     masterEl.id = "about";
 
@@ -169,10 +191,13 @@ const app = {
 
     masterEl.appendChild(undergradEl);
 
+    let gradEl = document.createElement("div");
+    $(gradEl).attr('id', 'grad');
+
     let gradTitleN = document.createTextNode("Our Graduate Degrees");
     let gradTitleE = document.createElement("h1");
     gradTitleE.appendChild(gradTitleN);
-    undergradEl.appendChild(gradTitleE);
+    gradEl.appendChild(gradTitleE);
 
     //generate undergrad boxes
     $.each(obj.graduate, function(key, value) {
@@ -199,16 +224,84 @@ const app = {
 
       uDegree.appendChild(descriptionE);
 
-      undergradEl.appendChild(uDegree);
+      gradEl.appendChild(uDegree);
     });
 
-    masterEl.appendChild(undergradEl);
-
-
+    masterEl.appendChild(gradEl);
 
     document.body.appendChild(masterEl);
   },
+
+  minors(obj) {
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'minor');
+
+    let minorEl = document.createElement("div");
+    $(minorEl).attr('id', 'minors');
+
+    let titleN = document.createTextNode("Our UnderGraduate Minors");
+    let titleE = document.createElement("h1");
+    titleE.appendChild(titleN);
+    minorEl.appendChild(titleE);
+
+    //generate undergrad boxes
+    $.each(obj.UgMinors, function(key, value) {
+      //console.log(value.title);
+
+      let uMinor = document.createElement("div");
+      $(uMinor).addClass("uMinor");
+
+      //get title
+      let titleC = value.title;
+      let titleN = document.createTextNode(titleC);
+      let titleE = document.createElement("h2");
+      titleN.value = titleC;
+      titleE.appendChild(titleN);
+
+      uMinor.appendChild(titleE);
+
+      //get desc
+      let descriptionC = value.description;
+      let descriptionN = document.createTextNode(descriptionC);
+      let descriptionE = document.createElement("p");
+      $(descriptionE).addClass("desc");
+
+      descriptionN.value = descriptionC;
+      descriptionE.appendChild(descriptionN);
+
+      uMinor.appendChild(descriptionE);
+
+      minorEl.appendChild(uMinor);
+    });
+
+    masterEl.appendChild(minorEl);
+
+    document.body.appendChild(masterEl);
+
+    $(".uMinor").click(function() {
+      $(".desc", this).toggle();
+      console.log("clicked");
+    });
+
+  },
+
+  employment(obj) {
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'minor');
+
+    let minorEl = document.createElement("div");
+    $(minorEl).attr('id', 'minors');
+
+    let titleN = document.createTextNode(obj.introduction.title);
+    let titleE = document.createElement("h1");
+    titleE.appendChild(titleN);
+    minorEl.appendChild(titleE);
+
+    masterEl.appendChild(minorEl);
+
+    document.body.appendChild(masterEl);
+  }
 }
 module.exports = app;
 
-},{}]},{},[1]);
+},{}]},{},[2]);

@@ -8,8 +8,10 @@ the game will be properties of app.
 "use strict";
 
 const main = require('./main.js');
+const controls = require('./controls.js');
 
 window.addEventListener('load', function () {
   console.log("window.onload ran");
     let run = main.init();
+    
 })
