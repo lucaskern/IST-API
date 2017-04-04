@@ -7,11 +7,11 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
-    //this.getData("about");
+    this.getData("about");
 
-    //this.getData("degrees");
+    this.getData("degrees");
 
-    //this.getData("minors");
+    this.getData("minors");
 
     this.getData("employment");
   },
@@ -51,7 +51,7 @@ const app = {
     });
   },
 
-  //Parse data, call for recommendations, build content
+  //pass json object to correct mehtod for parsing/building
   jsonLoaded(obj, key) {
     //return obj;
     console.log("obj stringified = " + JSON.stringify(obj));
@@ -207,7 +207,7 @@ const app = {
     $(masterEl).attr('id', 'minor');
 
     let minorEl = document.createElement("div");
-    $(minorEl).attr('id', 'minors');
+
 
     let titleN = document.createTextNode("Our UnderGraduate Minors");
     let titleE = document.createElement("h1");
@@ -244,6 +244,7 @@ const app = {
       minorEl.appendChild(uMinor);
     });
 
+    $(minorEl).attr('id', 'minors');
     masterEl.appendChild(minorEl);
 
     document.body.appendChild(masterEl);
@@ -253,21 +254,85 @@ const app = {
       console.log("clicked");
     });
 
+
+
   },
 
   employment(obj) {
     let masterEl = document.createElement("div");
-    $(masterEl).attr('id', 'minor');
+    $(masterEl).attr('id', 'employment-container');
 
-    let minorEl = document.createElement("div");
-    $(minorEl).attr('id', 'minors');
+    let statsEl = document.createElement("div");
+    $(statsEl).attr('id', 'employment');
 
     let titleN = document.createTextNode(obj.introduction.title);
     let titleE = document.createElement("h1");
     titleE.appendChild(titleN);
-    minorEl.appendChild(titleE);
+    statsEl.appendChild(titleE);
 
-    masterEl.appendChild(minorEl);
+    //generate undergrad boxes
+    $.each(obj.introduction.content, function(key, value) {
+      //console.log(value.title);
+
+      let uMinor = document.createElement("div");
+      $(uMinor).addClass("emp-sec center");
+
+      //get title
+      let titleC = value.title;
+      let titleN = document.createTextNode(titleC);
+      let titleE = document.createElement("h2");
+      titleN.value = titleC;
+      titleE.appendChild(titleN);
+
+      uMinor.appendChild(titleE);
+
+      //get desc
+      let descriptionC = value.description;
+      let descriptionN = document.createTextNode(descriptionC);
+      let descriptionE = document.createElement("p");
+      $(descriptionE).addClass("desc");
+
+      descriptionN.value = descriptionC;
+      descriptionE.appendChild(descriptionN);
+
+      uMinor.appendChild(descriptionE);
+
+      statsEl.appendChild(uMinor);
+    });
+
+    masterEl.appendChild(statsEl);
+
+    //generate undergrad boxes
+    $.each(obj.degreeStatistics.statistics, function(key, value) {
+      //console.log(value.title);
+
+      let uMinor = document.createElement("div");
+      $(uMinor).addClass("emp-stat-sec");
+
+      //get title
+      let titleC = value.value;
+      let titleN = document.createTextNode(titleC);
+      let titleE = document.createElement("h2");
+      titleN.value = titleC;
+      titleE.appendChild(titleN);
+
+      uMinor.appendChild(titleE);
+
+      //get desc
+      let descriptionC = value.description;
+      let descriptionN = document.createTextNode(descriptionC);
+      let descriptionE = document.createElement("p");
+      $(descriptionE).addClass("desc");
+
+      descriptionN.value = descriptionC;
+      descriptionE.appendChild(descriptionN);
+
+      uMinor.appendChild(descriptionE);
+
+      statsEl.appendChild(uMinor);
+    });
+
+    masterEl.appendChild(statsEl);
 
     document.body.appendChild(masterEl);
   }

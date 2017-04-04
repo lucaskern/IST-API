@@ -1,5 +1,9 @@
+#about, #degrees, #minors, #employment-container {
+  border: 3px solid black;
+}
+
+
 #about {
-  background-color: red;
 }
 
 #degrees {
@@ -10,7 +14,7 @@
   margin: 0px auto;
 }
 
-#undergrad h1, #grad h1, #minors h1 {
+#undergrad h1, #grad h1, #minors h1, #employment h1, .center{
   text-align: center;
 }
 
@@ -24,7 +28,7 @@
 
 }
 
-.uMinor {
+.uMinor, .emp-stat-sec {
   float: left;
   width: 25%;
 
