@@ -1,0 +1,21 @@
+#about {
+  background-color: red;
+}
+
+#degrees {
+}
+
+#uGrad {
+  background-color: lightgreen;
+  margin: 0px auto;
+}
+
+#undergrad h1 {
+  text-align: center;
+}
+
+.uDegree {
+  padding: 10px;
+  width: 30%;
+  float: left;
+}
