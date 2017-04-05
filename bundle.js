@@ -37,13 +37,13 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
-    this.getData("about");
+    //this.getData("about");
 
     this.getData("degrees");
 
-    this.getData("minors");
+    //this.getData("minors");
 
-    this.getData("employment");
+    //this.getData("employment");
   },
 
   controls() {
@@ -112,7 +112,7 @@ const app = {
     //generate title
     let titleC = obj.title;
     let titleN = document.createTextNode(titleC);
-    let titleE = document.createElement("h2");
+    let titleE = document.createElement("h1");
     titleN.value = titleC;
     titleE.appendChild(titleN);
 
@@ -150,12 +150,15 @@ const app = {
   },
 
   degrees(obj) {
+    //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'degrees');
 
+    //undergrad container
     let undergradEl = document.createElement("div");
     $(undergradEl).attr('id', 'undergrad');
 
+    //add degree title
     let titleN = document.createTextNode("Our UnderGraduate Degrees");
     let titleE = document.createElement("h1");
     titleE.appendChild(titleN);
@@ -165,6 +168,7 @@ const app = {
     $.each(obj.undergraduate, function(key, value) {
       console.log(value.title);
 
+      //add uDegree div
       let uDegree = document.createElement("div");
       $(uDegree).addClass("uDegree");
 
@@ -175,6 +179,7 @@ const app = {
       titleN.value = titleC;
       titleE.appendChild(titleN);
 
+      //append title to uDegree div
       uDegree.appendChild(titleE);
 
       //get desc
@@ -184,12 +189,12 @@ const app = {
       descriptionN.value = descriptionC;
       descriptionE.appendChild(descriptionN);
 
+      //append description to uDegree div
       uDegree.appendChild(descriptionE);
 
+      //append uDegree to undergrad container
       undergradEl.appendChild(uDegree);
     });
-
-    masterEl.appendChild(undergradEl);
 
     let gradEl = document.createElement("div");
     $(gradEl).attr('id', 'grad');
@@ -203,8 +208,8 @@ const app = {
     $.each(obj.graduate, function(key, value) {
       console.log(value.title);
 
-      let uDegree = document.createElement("div");
-      $(uDegree).addClass("uDegree");
+      let gDegree = document.createElement("div");
+      $(gDegree).addClass("gDegree");
 
       //get title
       let titleC = value.title;
@@ -213,7 +218,7 @@ const app = {
       titleN.value = titleC;
       titleE.appendChild(titleN);
 
-      uDegree.appendChild(titleE);
+      gDegree.appendChild(titleE);
 
       //get desc
       let descriptionC = value.description;
@@ -222,11 +227,12 @@ const app = {
       descriptionN.value = descriptionC;
       descriptionE.appendChild(descriptionN);
 
-      uDegree.appendChild(descriptionE);
+      gDegree.appendChild(descriptionE);
 
-      gradEl.appendChild(uDegree);
+      gradEl.appendChild(gDegree);
     });
 
+    masterEl.appendChild(undergradEl);
     masterEl.appendChild(gradEl);
 
     document.body.appendChild(masterEl);

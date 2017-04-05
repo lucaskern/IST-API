@@ -1,12 +1,14 @@
 #about, #degrees, #minors, #employment-container {
-  border: 3px solid black;
+  /*border: 3px solid black;*/
+  margin-bottom: 20px;
 }
 
 
 #about {
 }
 
-#degrees {
+#degrees div {
+  margin-bottom: 20px;
 }
 
 #uGrad {
@@ -14,13 +16,13 @@
   margin: 0px auto;
 }
 
-#undergrad h1, #grad h1, #minors h1, #employment h1, .center{
+h1, .center{
   text-align: center;
 }
 
 .uDegree {
   padding: 10px;
-  width: 30%;
+  width: 33.333%;
   float: left;
 }
 
