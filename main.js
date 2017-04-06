@@ -17,7 +17,11 @@ const app = {
 
     //this.getData("people");
 
-    this.getData("research/byInterestArea");
+    //this.getData("research/byInterestArea");
+
+    //this.getData("research/byFaculty");
+
+    this.getData("resources");
   },
 
   controls() {
@@ -67,8 +71,14 @@ const app = {
           case "research/byInterestArea":
             thisRef.researchArea(obj);
             break;
+          case "research/byFaculty":
+            thisRef.researchFac(obj);
+            break;
+          case "resources":
+            thisRef.resources(obj);
+            break;
           default:
-            return obj;
+            return JSON.stringify(obj);
         }
       },
       error: function() {
@@ -82,15 +92,15 @@ const app = {
     let masterEl = document.createElement("div");
     masterEl.id = "about";
 
-    let x="<h1>"+obj.title+"</h2>";
-				x+="<p>"+obj.description+"</p>";
-				x+="<p id='quote'>"+obj.quote+"</p>";
-				x+="<h3>"+obj.quoteAuthor+"</h3>";
+    let x = "<h1>" + obj.title + "</h2>";
+    x += "<p>" + obj.description + "</p>";
+    x += "<p id='quote'>" + obj.quote + "</p>";
+    x += "<h3>" + obj.quoteAuthor + "</h3>";
 
-        //append master to body
-        document.body.appendChild(masterEl);
+    //append master to body
+    document.body.appendChild(masterEl);
 
-				$('#about').html(x);
+    $('#about').html(x);
   },
 
   degrees(obj) {
@@ -100,19 +110,19 @@ const app = {
 
     let xStr = '';
 
-    xStr+= " <h1> Our UnderGraduate Degrees </h1>";
+    xStr += " <h1> Our UnderGraduate Degrees </h1>";
 
     //generate undergrad boxes
     $.each(obj.undergraduate, function(key, value) {
-      xStr+= "<div class='uDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
+      xStr += "<div class='uDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
     });
 
     //generate undergrad boxes
     $.each(obj.graduate, function(key, value) {
       if (value.description != null) {
-        xStr+= "<div class='gDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
+        xStr += "<div class='gDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
       } else {
-        xStr+= "<div class='certs overflow'> <h2> " + value.degreeName + "</h2> <p> " + value.availableCertificates + "</p> </div>";
+        xStr += "<div class='certs overflow'> <h2> " + value.degreeName + "</h2> <p> " + value.availableCertificates + "</p> </div>";
       }
     });
 
@@ -183,11 +193,11 @@ const app = {
 
     let xStr = '';
 
-    xStr+= " <h1> Our UnderGraduate Minors </h1>";
+    xStr += " <h1> Our UnderGraduate Minors </h1>";
 
     //generate undergrad boxes
     $.each(obj.UgMinors, function(key, value) {
-      xStr+= "<div class='uMinor'> <h2> " + value.title + "</h2> <p class='desc'> " + value.description + "</p> </div>";
+      xStr += "<div class='uMinor'> <h2> " + value.title + "</h2> <p class='desc'> " + value.description + "</p> </div>";
     });
 
     document.body.appendChild(masterEl);
@@ -286,25 +296,25 @@ const app = {
 
     let xStr = '';
 
-    xStr+= "<h1> " + obj.title + "</h1>"
+    xStr += "<h1> " + obj.title + "</h1>";
 
-			$.each(obj.faculty, function(key, value) {
+    $.each(obj.faculty, function(key, value) {
 
-				xStr+='<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
-				xStr+='<h2>' + value.name + '</h2><p>' + value.title + '</p>';
-				xStr+='<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
-			});
+      xStr += '<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+      xStr += '<h2>' + value.name + '</h2><p>' + value.title + '</p>';
+      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+    });
 
-      $.each(obj.staff, function(key, value) {
+    $.each(obj.staff, function(key, value) {
 
-				xStr+='<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
-				xStr+='<h2>' + value.name + '</h2><p>' + value.title + '</p>';
-				xStr+='<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
-			});
+      xStr += '<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+      xStr += '<h2>' + value.name + '</h2><p>' + value.title + '</p>';
+      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+    });
 
-      document.body.appendChild(masterEl);
+    document.body.appendChild(masterEl);
 
-			$('#people-cont').html(xStr);
+    $('#people-cont').html(xStr);
   },
 
   researchArea(obj) {
@@ -314,19 +324,128 @@ const app = {
 
     let xStr = '';
 
-    xStr+= "<h1> Research By Area </h1>";
+    xStr += "<h1> Research By Area </h1>";
 
-    $.each(obj.citations, function(key, value) {
+    $.each(obj.byInterestArea, function(key, value) {
 
-      xStr+='<div class="research-area">';
-      xStr+='<h2>' + value.areaName + '</h2>';
-      xStr+='</div>';
+      xStr += '<div class="research-area">';
+      xStr += '<h2>' + value.areaName + '</h2> <p> ' + value.citations + '</p>';
+      xStr += '</div>';
     });
 
     document.body.appendChild(masterEl);
 
     $('#researchArea-cont').html(xStr);
 
+  },
+
+  researchFac(obj) {
+    //create master container with id degrees
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'researchFaculty-cont');
+
+    let xStr = '';
+
+    xStr += "<h1> Research By Faculty </h1>";
+
+    $.each(obj.byFaculty, function(key, value) {
+
+      xStr += '<div class="research-area">';
+      xStr += '<h2>' + value.facultyName + '</h2> <p> ' + value.citations + '</p>';
+      xStr += '</div>';
+    });
+
+    document.body.appendChild(masterEl);
+
+    $('#researchFaculty-cont').html(xStr);
+
+  },
+
+  resources(obj) {
+
+    let thisRef = this;
+    //create master container with id degrees
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'resources-cont');
+
+    let xStr = '';
+
+    xStr += "<h1>" + obj.title + "</h1> <p> " + obj.subTitle + "</p>";
+
+    $.each(obj, function(key, value) {
+
+      console.log(value.title);
+
+      switch (value.title) {
+        case "Study Abroad":
+          xStr += '<div class="resource">';
+          xStr += '<a href="#" data-featherlight="#resource-study-abroad">' + value.title + '</a>';
+          xStr += '</div>';
+
+          xStr += '<div class="lightbox" id="resource-study-abroad">  <h2> Study Abroad </h2> <p>' + value.description + '</p> </div>';
+          break;
+        case "Advising":
+          xStr += '<div class="resource">';
+          xStr += '<a href="#" data-featherlight="#resource-advising">' + value.title + '</a>';
+          xStr += '</div>';
+
+          let academicAdv = value.academicAdvisors;
+          let advisorList = value.professonalAdvisors;
+
+          xStr += '<div class="lightbox" id="resource-advising"> <h2> ' + value.title + ' </h2> <h4>' + value.academicAdvisors.title + '</h4> <p>' + value.academicAdvisors.description + '</p> <h4> ' + value.professonalAdvisors.title + '</h4>';
+
+          $.each(value.professonalAdvisors.advisorInformation, function(key, value) {
+            xStr += '<p> <strong>' + value.name + '</strong> </p>';
+            xStr += '<p> Department: ' + value.department + '</p>';
+            xStr += '<p> E-mail: ' + value.email + '</p>';
+          });
+
+          xStr += "<h4> " + value.facultyAdvisors.title + '</h4> <p> ' + value.facultyAdvisors.description + '</p>';
+
+          xStr += '</div>';
+          break;
+        case "Tutors / Lab Information":
+          xStr += '<div class="resource">';
+          xStr += '<a href="#" data-featherlight="#resource-lab">' + value.title + '</a>';
+          xStr += '</div>';
+
+          xStr += '<div class="lightbox" id="resource-lab">  <h2> Tutors/Lab Information </h2> <p>' + value.description + '</p> <p> View schedule: <strong>' + value.tutoringLabHoursLink + '</strong> </p> </div>';
+          break;
+        case "Student Ambassador Information & Application":
+          xStr += '<div class="resource">';
+          xStr += '<a href="#" data-featherlight="#resource-ambassadors">' + value.title + '</a>';
+          xStr += '</div>';
+
+          xStr += '<div class="lightbox" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
+
+          $.each(value.subSectionContent, function(key, value) {
+            xStr += '<h3>' + value.title + '</h3>';
+            xStr += '<p>' + value.description + '</p>';
+          });
+
+          xStr+= '<a href=""' + value.applicationFormLink + ' "> Application Link </a> <p>' + value.note +  '</p> </div>';
+          break;
+          case "Coop-Enrollment":
+            xStr += '<div class="resource">';
+            xStr += '<a href="#" data-featherlight="#resource-coop">' + value.title + '</a>';
+            xStr += '</div>';
+
+            xStr += '<div class="lightbox" id="resource-coop">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
+
+            $.each(value.subSectionContent, function(key, value) {
+              xStr += '<h3>' + value.title + '</h3>';
+              xStr += '<p>' + value.description + '</p>';
+            });
+
+            xStr+= '<a href=""' + value.applicationFormLink + ' "> Application Link </a> <p>' + value.note +  '</p> </div>';
+            break;
+      }
+
+    });
+
+    document.body.appendChild(masterEl);
+
+    $('#resources-cont').html(xStr);
   },
 }
 module.exports = app;
