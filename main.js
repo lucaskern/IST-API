@@ -9,11 +9,15 @@ const app = {
 
     //this.getData("about");
 
-    this.getData("degrees");
+    //this.getData("degrees");
 
     //this.getData("minors");
 
     //this.getData("employment");
+
+    //this.getData("people");
+
+    this.getData("research/byInterestArea");
   },
 
   controls() {
@@ -43,7 +47,29 @@ const app = {
       url: url,
       data: null,
       success: function(obj) {
-        thisRef.jsonLoaded(obj, key);
+        console.log("obj stringified = " + JSON.stringify(obj));
+        switch (key) {
+          case "about":
+            thisRef.about(obj);
+            break;
+          case "degrees":
+            thisRef.degrees(obj);
+            break;
+          case "minors":
+            thisRef.minors(obj);
+            break;
+          case "employment":
+            thisRef.employment(obj);
+            break;
+          case "people":
+            thisRef.people(obj);
+            break;
+          case "research/byInterestArea":
+            thisRef.researchArea(obj);
+            break;
+          default:
+            return obj;
+        }
       },
       error: function() {
         console.log('Error occured with ' + key);
@@ -51,164 +77,51 @@ const app = {
     });
   },
 
-  //pass json object to correct mehtod for parsing/building
-  jsonLoaded(obj, key) {
-    //return obj;
-    console.log("obj stringified = " + JSON.stringify(obj));
-    //console.log(obj.title);
-
-    switch (key) {
-      case "about":
-        this.about(obj);
-        break;
-      case "degrees":
-        this.degrees(obj);
-        break;
-      case "minors":
-        this.minors(obj);
-        break;
-      case "employment":
-        this.employment(obj);
-        break;
-    }
-
-  },
-
   //generate about section
   about(obj) {
     let masterEl = document.createElement("div");
     masterEl.id = "about";
 
-    //generate title
-    let titleC = obj.title;
-    let titleN = document.createTextNode(titleC);
-    let titleE = document.createElement("h1");
-    titleN.value = titleC;
-    titleE.appendChild(titleN);
+    let x="<h1>"+obj.title+"</h2>";
+				x+="<p>"+obj.description+"</p>";
+				x+="<p id='quote'>"+obj.quote+"</p>";
+				x+="<h3>"+obj.quoteAuthor+"</h3>";
 
-    masterEl.appendChild(titleE);
+        //append master to body
+        document.body.appendChild(masterEl);
 
-    //generate description
-    let descriptionC = obj.description;
-    let descriptionN = document.createTextNode(descriptionC);
-    let descriptionE = document.createElement("p");
-    descriptionN.value = descriptionC;
-    descriptionE.appendChild(descriptionN);
-
-    masterEl.appendChild(descriptionE);
-
-    //generate quote
-    let quoteC = obj.quote;
-    let quoteN = document.createTextNode(quoteC);
-    let quoteE = document.createElement("h4");
-    quoteN.value = quoteC;
-    quoteE.appendChild(quoteN);
-
-    masterEl.appendChild(quoteE);
-
-    //generate quoteAuthor
-    let quoteAuthorC = obj.quoteAuthor;
-    let quoteAuthorN = document.createTextNode(quoteAuthorC);
-    let quoteAuthorE = document.createElement("h5");
-    quoteAuthorN.value = quoteAuthorC;
-    quoteAuthorE.appendChild(quoteAuthorN);
-
-    masterEl.appendChild(quoteAuthorE);
-
-    //append master to body
-    document.body.appendChild(masterEl);
+				$('#about').html(x);
   },
 
   degrees(obj) {
     //create master container with id degrees
     let masterEl = document.createElement("div");
-    $(masterEl).attr('id', 'degrees');
+    $(masterEl).attr('id', 'degree-cont');
 
-    //undergrad container
-    let undergradEl = document.createElement("div");
-    $(undergradEl).attr('id', 'undergrad');
+    let xStr = '';
 
-    //add degree title
-    let titleN = document.createTextNode("Our UnderGraduate Degrees");
-    let titleE = document.createElement("h1");
-    titleE.appendChild(titleN);
-    undergradEl.appendChild(titleE);
+    xStr+= " <h1> Our UnderGraduate Degrees </h1>";
 
     //generate undergrad boxes
     $.each(obj.undergraduate, function(key, value) {
-      console.log(value.title);
-
-      //add uDegree div
-      let uDegree = document.createElement("div");
-      $(uDegree).addClass("uDegree");
-
-      //get title
-      let titleC = value.title;
-      let titleN = document.createTextNode(titleC);
-      let titleE = document.createElement("h2");
-      titleN.value = titleC;
-      titleE.appendChild(titleN);
-
-      //append title to uDegree div
-      uDegree.appendChild(titleE);
-
-      //get desc
-      let descriptionC = value.description;
-      let descriptionN = document.createTextNode(descriptionC);
-      let descriptionE = document.createElement("p");
-      descriptionN.value = descriptionC;
-      descriptionE.appendChild(descriptionN);
-
-      //append description to uDegree div
-      uDegree.appendChild(descriptionE);
-
-      //append uDegree to undergrad container
-      undergradEl.appendChild(uDegree);
+      xStr+= "<div class='uDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
     });
-
-    let gradEl = document.createElement("div");
-    $(gradEl).attr('id', 'grad');
-
-    let gradTitleN = document.createTextNode("Our Graduate Degrees");
-    let gradTitleE = document.createElement("h1");
-    gradTitleE.appendChild(gradTitleN);
-    gradEl.appendChild(gradTitleE);
 
     //generate undergrad boxes
     $.each(obj.graduate, function(key, value) {
-      console.log(value.title);
-
-      let gDegree = document.createElement("div");
-      $(gDegree).addClass("gDegree");
-
-      //get title
-      let titleC = value.title;
-      let titleN = document.createTextNode(titleC);
-      let titleE = document.createElement("h2");
-      titleN.value = titleC;
-      titleE.appendChild(titleN);
-
-      gDegree.appendChild(titleE);
-
-      //get desc
-      let descriptionC = value.description;
-      let descriptionN = document.createTextNode(descriptionC);
-      let descriptionE = document.createElement("p");
-      descriptionN.value = descriptionC;
-      descriptionE.appendChild(descriptionN);
-
-      gDegree.appendChild(descriptionE);
-
-      gradEl.appendChild(gDegree);
+      if (value.description != null) {
+        xStr+= "<div class='gDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
+      } else {
+        xStr+= "<div class='certs overflow'> <h2> " + value.degreeName + "</h2> <p> " + value.availableCertificates + "</p> </div>";
+      }
     });
 
-    masterEl.appendChild(undergradEl);
-    masterEl.appendChild(gradEl);
-
     document.body.appendChild(masterEl);
+
+    $("#degree-cont").html(xStr);
   },
 
-  minors(obj) {
+  minorsF(obj) {
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'minor');
 
@@ -262,6 +175,29 @@ const app = {
 
 
 
+  },
+
+  minors(obj) {
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'minor-cont');
+
+    let xStr = '';
+
+    xStr+= " <h1> Our UnderGraduate Minors </h1>";
+
+    //generate undergrad boxes
+    $.each(obj.UgMinors, function(key, value) {
+      xStr+= "<div class='uMinor'> <h2> " + value.title + "</h2> <p class='desc'> " + value.description + "</p> </div>";
+    });
+
+    document.body.appendChild(masterEl);
+
+    $("#minor-cont").html(xStr);
+
+    $(".uMinor").click(function() {
+      $(".desc", this).toggle();
+      console.log("clicked");
+    });
   },
 
   employment(obj) {
@@ -341,6 +277,56 @@ const app = {
     masterEl.appendChild(statsEl);
 
     document.body.appendChild(masterEl);
-  }
+  },
+
+  people(obj) {
+    //create master container with id degrees
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'people-cont');
+
+    let xStr = '';
+
+    xStr+= "<h1> " + obj.title + "</h1>"
+
+			$.each(obj.faculty, function(key, value) {
+
+				xStr+='<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+				xStr+='<h2>' + value.name + '</h2><p>' + value.title + '</p>';
+				xStr+='<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+			});
+
+      $.each(obj.staff, function(key, value) {
+
+				xStr+='<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+				xStr+='<h2>' + value.name + '</h2><p>' + value.title + '</p>';
+				xStr+='<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+			});
+
+      document.body.appendChild(masterEl);
+
+			$('#people-cont').html(xStr);
+  },
+
+  researchArea(obj) {
+    //create master container with id degrees
+    let masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'researchArea-cont');
+
+    let xStr = '';
+
+    xStr+= "<h1> Research By Area </h1>";
+
+    $.each(obj.citations, function(key, value) {
+
+      xStr+='<div class="research-area">';
+      xStr+='<h2>' + value.areaName + '</h2>';
+      xStr+='</div>';
+    });
+
+    document.body.appendChild(masterEl);
+
+    $('#researchArea-cont').html(xStr);
+
+  },
 }
 module.exports = app;

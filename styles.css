@@ -1,6 +1,13 @@
-#about, #degrees, #minors, #employment-container {
-  /*border: 3px solid black;*/
+.overflow {
+  overflow: auto;
+  width: 100%;
+}
+
+#about, #degree-cont, #minors, #employment-container, #people-cont {
+  border: 3px solid black;
+  background-color: lightgray;
   margin-bottom: 20px;
+  overflow: auto;
 }
 
 
@@ -20,22 +27,46 @@ h1, .center{
   text-align: center;
 }
 
-.uDegree {
+#degree-cont, #minor-cont, #people-cont  {
+  width: 80%;
+  margin: 0 auto 20px auto;
+}
+
+.uDegree, .gDegree {
   padding: 10px;
   width: 33.333%;
   float: left;
+  box-sizing: border-box;
 }
+
 
 #minors {
 
 }
 
 .uMinor, .emp-stat-sec {
+  padding: 10px;
+  margin: 1%;
   float: left;
-  width: 25%;
+  width: 22.75%;
+  min-height: 200px;
+  background-color: lightblue;
+  box-sizing: border-box;
+  overflow: auto;
+}
 
+.uMinor h2 {
+  text-align: center;
 }
 
 .uMinor p {
   display: none;
+}
+
+/* People */
+.fac-indv {
+  width: 25%;
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
 }
