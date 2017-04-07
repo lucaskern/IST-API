@@ -2,24 +2,25 @@
 const app = {
   api_URL: "http://ist.rit.edu/api/",
   apiValue: "",
+  autoBind: '[data-featherlight]',
 
   init() {
     console.log("app.main.init() called");
     // initialize properties
 
-    //this.getData("about");
+    this.getData("about");
 
-    //this.getData("degrees");
+    this.getData("degrees");
 
-    //this.getData("minors");
+    this.getData("minors");
 
-    //this.getData("employment");
+    this.getData("employment");
 
-    //this.getData("people");
+    this.getData("people");
 
-    //this.getData("research/byInterestArea");
+    this.getData("research/byInterestArea");
 
-    //this.getData("research/byFaculty");
+    this.getData("research/byFaculty");
 
     this.getData("resources");
   },
@@ -131,62 +132,6 @@ const app = {
     $("#degree-cont").html(xStr);
   },
 
-  minorsF(obj) {
-    let masterEl = document.createElement("div");
-    $(masterEl).attr('id', 'minor');
-
-    let minorEl = document.createElement("div");
-
-
-    let titleN = document.createTextNode("Our UnderGraduate Minors");
-    let titleE = document.createElement("h1");
-    titleE.appendChild(titleN);
-    minorEl.appendChild(titleE);
-
-    //generate undergrad boxes
-    $.each(obj.UgMinors, function(key, value) {
-      //console.log(value.title);
-
-      let uMinor = document.createElement("div");
-      $(uMinor).addClass("uMinor");
-
-      //get title
-      let titleC = value.title;
-      let titleN = document.createTextNode(titleC);
-      let titleE = document.createElement("h2");
-      titleN.value = titleC;
-      titleE.appendChild(titleN);
-
-      uMinor.appendChild(titleE);
-
-      //get desc
-      let descriptionC = value.description;
-      let descriptionN = document.createTextNode(descriptionC);
-      let descriptionE = document.createElement("p");
-      $(descriptionE).addClass("desc");
-
-      descriptionN.value = descriptionC;
-      descriptionE.appendChild(descriptionN);
-
-      uMinor.appendChild(descriptionE);
-
-      minorEl.appendChild(uMinor);
-    });
-
-    $(minorEl).attr('id', 'minors');
-    masterEl.appendChild(minorEl);
-
-    document.body.appendChild(masterEl);
-
-    $(".uMinor").click(function() {
-      $(".desc", this).toggle();
-      console.log("clicked");
-    });
-
-
-
-  },
-
   minors(obj) {
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'minor-cont');
@@ -197,7 +142,19 @@ const app = {
 
     //generate undergrad boxes
     $.each(obj.UgMinors, function(key, value) {
-      xStr += "<div class='uMinor'> <h2> " + value.title + "</h2> <p class='desc'> " + value.description + "</p> </div>";
+      let uniqueID = value.name.replace(/\s/g, '');
+
+      xStr += '<div class="grid-box">';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '</div>';
+
+      xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Course List </h3>';
+
+      $.each(value.courses, function(key, value) {
+        xStr += '<p> ' + value + '</p>';
+      });
+
+      xStr += '</div>'
     });
 
     document.body.appendChild(masterEl);
@@ -350,9 +307,13 @@ const app = {
 
     $.each(obj.byFaculty, function(key, value) {
 
-      xStr += '<div class="research-area">';
-      xStr += '<h2>' + value.facultyName + '</h2> <p> ' + value.citations + '</p>';
+      let uniqueID = value.facultyName.replace(/\s/g, '');
+
+      xStr += '<div class="grid-box">';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.facultyName + '</a> </span>';
       xStr += '</div>';
+
+      xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
     });
 
     document.body.appendChild(masterEl);
@@ -374,18 +335,18 @@ const app = {
 
     $.each(obj, function(key, value) {
 
-      console.log(value.title);
+      console.log(key);
 
       switch (value.title) {
         case "Study Abroad":
-          xStr += '<div class="resource">';
+          xStr += '<div class="grid-box">';
           xStr += '<a href="#" data-featherlight="#resource-study-abroad">' + value.title + '</a>';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-study-abroad">  <h2> Study Abroad </h2> <p>' + value.description + '</p> </div>';
           break;
         case "Advising":
-          xStr += '<div class="resource">';
+          xStr += '<div class="grid-box">';
           xStr += '<a href="#" data-featherlight="#resource-advising">' + value.title + '</a>';
           xStr += '</div>';
 
@@ -405,18 +366,18 @@ const app = {
           xStr += '</div>';
           break;
         case "Tutors / Lab Information":
-          xStr += '<div class="resource">';
+          xStr += '<div class="grid-box">';
           xStr += '<a href="#" data-featherlight="#resource-lab">' + value.title + '</a>';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-lab">  <h2> Tutors/Lab Information </h2> <p>' + value.description + '</p> <p> View schedule: <strong>' + value.tutoringLabHoursLink + '</strong> </p> </div>';
           break;
         case "Student Ambassador Information & Application":
-          xStr += '<div class="resource">';
+          xStr += '<div class="grid-box">';
           xStr += '<a href="#" data-featherlight="#resource-ambassadors">' + value.title + '</a>';
           xStr += '</div>';
 
-          xStr += '<div class="lightbox" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
+          xStr += '<div class="lightbox" tabindex="-1" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
 
           $.each(value.subSectionContent, function(key, value) {
             xStr += '<h3>' + value.title + '</h3>';
@@ -426,19 +387,34 @@ const app = {
           xStr+= '<a href=""' + value.applicationFormLink + ' "> Application Link </a> <p>' + value.note +  '</p> </div>';
           break;
           case "Coop-Enrollment":
-            xStr += '<div class="resource">';
+            xStr += '<div class="grid-box">';
             xStr += '<a href="#" data-featherlight="#resource-coop">' + value.title + '</a>';
             xStr += '</div>';
 
-            xStr += '<div class="lightbox" id="resource-coop">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
+            xStr += '<div class="lightbox" id="resource-coop">  <h2> Co-op Information </h2>';
 
-            $.each(value.subSectionContent, function(key, value) {
+            $.each(value.enrollmentInformationContent, function(key, value) {
               xStr += '<h3>' + value.title + '</h3>';
               xStr += '<p>' + value.description + '</p>';
             });
 
-            xStr+= '<a href=""' + value.applicationFormLink + ' "> Application Link </a> <p>' + value.note +  '</p> </div>';
+            xStr+= '<a href="' + value.RITJobZoneGuidelink + ' "> Learn more here </a> </div>';
             break;
+      }
+
+      if (key == "forms") {
+        xStr += '<div class="grid-box">';
+        xStr += '<a href="#" data-featherlight="#resource-forms">' + key + '</a>';
+        xStr += '</div>';
+
+        xStr += '<div class="lightbox" id="resource-forms">  <h2> Forms </h2>';
+
+        $.each(value.graduateForms, function(key, value) {
+          xStr += '<h3>' + value.formName + '</h3>';
+          xStr += '<a href="http://www.ist.rit.edu/' + value.href + '"> Link </a> </p>';
+        });
+
+        xStr+= "</div>";
       }
 
     });
