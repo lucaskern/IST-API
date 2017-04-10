@@ -6,13 +6,23 @@
 
 /* Generic */
 
+body {
+  margin: 0;
+}
+
 h1, h2, h3, h4, h5, h6, p, a {
   font-family: sans-serif;
+  color: black;
 }
 
 .overflow {
   overflow: auto;
   width: 100%;
+}
+
+.cont-wrapper {
+  width: 100%;
+  padding: 10px;
 }
 
 .grid-box {
@@ -38,17 +48,61 @@ h1, h2, h3, h4, h5, h6, p, a {
  color: white;
 }
 
-#degree-cont, #minor-cont, #people-cont, #resources-cont, #researchFaculty-cont {
-  width: 80%;
+.container {
+  width: 100%;
   margin: 0 auto 20px auto;
   overflow: auto;
 }
 
 /* About */
 
+.about-cont-wrapper {
+  width: 100%;
+  background-color: #F17300;
+  padding: 10px;
+  height: 800px;
+}
+
+#about-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
 /* Degrees */
 
+.degree-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#degree-cont {
+  border: 0px solid black;
+  background-color: #F17300;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
 /* Minors */
+
+.minor-cont-wrapper {
+  width: 100%;
+  background-color: #F17300;
+  padding: 10px;
+}
+
+#minor-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
 
 #minor-cont .grid-box {
   background-color: green;
@@ -62,7 +116,66 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 /* Employment */
 
+.employment-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#employment-cont {
+  border: 0px solid black;
+  background-color: #F17300;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+/* Map */
+
+.map-cont-wrapper {
+  width: 100%;
+  background-color: #F17300;
+  padding: 10px;
+}
+
+#map-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+iframe {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#map-iframe {
+  border: none;
+  display: block;
+  width: 80%;
+  height: 600px;
+  margin: 0 auto;
+}
+
+#StudentsMap {
+  overflow: visible;
+}
+
 /* People */
+
+.people-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#people-cont {
+  border: 0px solid black;
+  background-color: #F17300;
+  margin-bottom: 20px;
+  overflow: auto;
+}
 
 .fac-indv {
   width: 25%;
@@ -71,7 +184,21 @@ h1, h2, h3, h4, h5, h6, p, a {
   box-sizing: border-box;
 }
 
-/* Research Faculty */
+/* Research Area */
+
+.researchArea-cont-wrapper {
+  width: 100%;
+  background-color: #F17300;
+  padding: 10px;
+}
+
+#researchArea-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
 
 .research-area {
   padding: 10px;
@@ -84,7 +211,26 @@ h1, h2, h3, h4, h5, h6, p, a {
   overflow:scroll;
 }
 
-/* Research Area */
+#researchArea-cont .grid-box{
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* Research Faculty */
+
+.researchFac-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#researchFac-cont {
+  border: 0px solid black;
+  background-color: #F17300;
+  margin-bottom: 20px;
+  overflow: auto;
+}
 
 #researchFaculty-cont .grid-box{
   background-color: green;
@@ -94,6 +240,20 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 /* Resources */
 
+.resources-cont-wrapper {
+  width: 100%;
+  background-color: #F17300;
+  padding: 10px;
+}
+
+#resources-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
+
 #resources-cont .grid-box {
   background-color: green;
   margin: 10px;
@@ -101,12 +261,12 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 
-#about, #degree-cont, #minors, #employment-container, #people-cont {
+/*#degree-cont, #minor-cont, #employment-cont, #people-cont {
   border: 3px solid black;
-  background-color: lightgray;
+  background-color: #81A4CD;
   margin-bottom: 20px;
   overflow: auto;
-}
+}*/
 
 
 #about {
@@ -201,6 +361,20 @@ and (orientation : portrait) {
 @media only screen
 and (min-width : 1224px) {
 /* Styles */
+  .degrees-cont-wrapper, .minor-cont-wrapper, .employment-cont-wrapper, .map-cont-wrapper, .resources-cont-wrapper {
+    height: 800px;
+  }
+
+  #degrees-cont, #minor-cont, #employment-cont, #map-cont, #resources-cont {
+    position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  }
+
+  .container {
+    width: 80%;
+    padding: 10px;
+  }
 }
 
 /* Large screens ----------- */

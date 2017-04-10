@@ -8,21 +8,28 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
-    this.getData("about");
+    //this.getData("about");
 
-    this.getData("degrees");
+    // this.getData("degrees");
+    //
+    // this.getData("minors");
+    //
+    // this.getData("employment");
+    //
+    // this.getData("people");
+    //
+    // this.getData("research/byInterestArea");
+    //
+    // this.getData("research/byFaculty");
+    //
+    // this.getData("resources");
 
-    this.getData("minors");
+    this.getData("footer");
 
-    this.getData("employment");
+    //this.map();
 
-    this.getData("people");
-
-    this.getData("research/byInterestArea");
-
-    this.getData("research/byFaculty");
-
-    this.getData("resources");
+    //$('[id="cont"]').addClass( "container" );
+    //$(masterEl).wrap( "<div class='cont-wrapper'></div>" );
   },
 
   controls() {
@@ -78,6 +85,9 @@ const app = {
           case "resources":
             thisRef.resources(obj);
             break;
+          case "footer":
+            thisRef.footer(obj);
+            break;
           default:
             return JSON.stringify(obj);
         }
@@ -91,7 +101,8 @@ const app = {
   //generate about section
   about(obj) {
     let masterEl = document.createElement("div");
-    masterEl.id = "about";
+    masterEl.id = "about-cont";
+    $(masterEl).addClass("container");
 
     let x = "<h1>" + obj.title + "</h2>";
     x += "<p>" + obj.description + "</p>";
@@ -101,13 +112,17 @@ const app = {
     //append master to body
     document.body.appendChild(masterEl);
 
-    $('#about').html(x);
+    $('#about-cont').html(x);
+    $(masterEl).wrap( "<div class='about-cont-wrapper'></div>" );
+
+    this.getData("degrees");
   },
 
   degrees(obj) {
     //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'degree-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -129,12 +144,15 @@ const app = {
 
     document.body.appendChild(masterEl);
 
-    $("#degree-cont").html(xStr);
+    $("#degree-cont").html(xStr); $(masterEl).wrap( "<div class='degree-cont-wrapper'></div>" );
+
+    this.getData("minors");
   },
 
   minors(obj) {
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'minor-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -155,21 +173,26 @@ const app = {
       });
 
       xStr += '</div>'
+
+
     });
 
     document.body.appendChild(masterEl);
 
-    $("#minor-cont").html(xStr);
+    $("#minor-cont").html(xStr); $(masterEl).wrap( "<div class='minor-cont-wrapper'></div>" );
 
     $(".uMinor").click(function() {
       $(".desc", this).toggle();
       console.log("clicked");
     });
+
+    this.getData("employment");
   },
 
   employment(obj) {
     let masterEl = document.createElement("div");
-    $(masterEl).attr('id', 'employment-container');
+    $(masterEl).attr('id', 'employment-cont');
+    $(masterEl).addClass("container");
 
     let statsEl = document.createElement("div");
     $(statsEl).attr('id', 'employment');
@@ -244,12 +267,34 @@ const app = {
     masterEl.appendChild(statsEl);
 
     document.body.appendChild(masterEl);
+
+    $(masterEl).wrap( "<div class='employment-cont-wrapper'></div>" );
+
+    this.map();
+  },
+
+  map() {
+    let masterEl = document.createElement("div");
+    masterEl.id = "map-cont";
+    $(masterEl).addClass("container");
+
+    let x = "<h1> Where Our Students Work </h1> <p> Click a marker to learn more about the jobs at that location </p>";
+    x += "<iframe id='map-iframe' src='https://ist.rit.edu/api/map/' scrolling='no'> <p>Your browser does not showing this map. Obviously you are using an old browser. </p> </iframe>"
+
+    //append master to body
+    document.body.appendChild(masterEl);
+
+    $('#map-cont').html(x);
+    $(masterEl).wrap( "<div class='map-cont-wrapper'></div>" );
+
+    this.getData("people");
   },
 
   people(obj) {
     //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'people-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -271,13 +316,16 @@ const app = {
 
     document.body.appendChild(masterEl);
 
-    $('#people-cont').html(xStr);
+    $('#people-cont').html(xStr); $(masterEl).wrap( "<div class='people-cont-wrapper'></div>" );
+
+    this.getData("research/byInterestArea");
   },
 
   researchArea(obj) {
     //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'researchArea-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -285,14 +333,20 @@ const app = {
 
     $.each(obj.byInterestArea, function(key, value) {
 
-      xStr += '<div class="research-area">';
-      xStr += '<h2>' + value.areaName + '</h2> <p> ' + value.citations + '</p>';
+      let uniqueID = value.areaName.replace(/\s/g, '');
+
+      xStr += '<div class="grid-box">';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.areaName + '</a> </span>';
       xStr += '</div>';
+
+      xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
     });
 
     document.body.appendChild(masterEl);
 
-    $('#researchArea-cont').html(xStr);
+    $('#researchArea-cont').html(xStr); $(masterEl).wrap( "<div class='researchArea-cont-wrapper'></div>" );
+
+    this.getData("research/byFaculty");
 
   },
 
@@ -300,6 +354,7 @@ const app = {
     //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'researchFaculty-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -318,7 +373,9 @@ const app = {
 
     document.body.appendChild(masterEl);
 
-    $('#researchFaculty-cont').html(xStr);
+    $('#researchFaculty-cont').html(xStr); $(masterEl).wrap( "<div class='researchFac-cont-wrapper'></div>" );
+
+    this.getData("resources");
 
   },
 
@@ -328,6 +385,7 @@ const app = {
     //create master container with id degrees
     let masterEl = document.createElement("div");
     $(masterEl).attr('id', 'resources-cont');
+    $(masterEl).addClass("container");
 
     let xStr = '';
 
@@ -421,7 +479,14 @@ const app = {
 
     document.body.appendChild(masterEl);
 
-    $('#resources-cont').html(xStr);
+    $('#resources-cont').html(xStr); $(masterEl).wrap( "<div class='resources-cont-wrapper'></div>" );
+
+    this.getData("footer");
   },
+
+  footer(obj) {
+
+  }
+
 }
 module.exports = app;

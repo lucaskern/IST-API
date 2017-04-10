@@ -4,5 +4,7 @@ $( document ).ready(function() {
     console.log("clicked");
   });
 
+  $('[id*="cont"]').addClass( "container" );
+
   console.log("jQuery loaded");
 });
