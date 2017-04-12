@@ -40,7 +40,7 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
-    //this.getData("about");
+    this.getData("about");
 
     // this.getData("degrees");
     //
@@ -56,7 +56,7 @@ const app = {
     //
     // this.getData("resources");
 
-    this.getData("footer");
+    //this.getData("footer");
 
     //this.map();
 
@@ -139,7 +139,7 @@ const app = {
     let x = "<h1>" + obj.title + "</h2>";
     x += "<p>" + obj.description + "</p>";
     x += "<p id='quote'>" + obj.quote + "</p>";
-    x += "<h3>" + obj.quoteAuthor + "</h3>";
+    x += "<h3> - " + obj.quoteAuthor + "</h3>";
 
     //append master to body
     document.body.appendChild(masterEl);
@@ -211,7 +211,8 @@ const app = {
 
     document.body.appendChild(masterEl);
 
-    $("#minor-cont").html(xStr); $(masterEl).wrap( "<div class='minor-cont-wrapper'></div>" );
+    $("#minor-cont").html(xStr);
+    $(masterEl).wrap( "<div class='minor-cont-wrapper'></div>" );
 
     $(".uMinor").click(function() {
       $(".desc", this).toggle();
@@ -467,7 +468,7 @@ const app = {
           xStr += '<a href="#" data-featherlight="#resource-ambassadors">' + value.title + '</a>';
           xStr += '</div>';
 
-          xStr += '<div class="lightbox" tabindex="-1" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '"/>';
+          xStr += '<div class="lightbox" tabindex="-1" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '" />';
 
           $.each(value.subSectionContent, function(key, value) {
             xStr += '<h3>' + value.title + '</h3>';
@@ -517,7 +518,26 @@ const app = {
   },
 
   footer(obj) {
+    console.log("yo");
+    let masterEl = document.createElement("footer");
+    masterEl.id = "footer-cont";
 
+    let xString = "<div class='column'> <h3> " + obj.social.title + " </h3> <ul>";
+    xString += "<li> <a href='" + obj.social.twitter + "'> Twitter </a> </li>";
+    xString += "<li> <a href='" + obj.social.facebook + "'> Facebook </a> </li> </div>";
+
+    xString += "<div class='column'> <h3> Quick Links </h3> <ul>";
+
+    $.each(obj.quickLinks, function(key, value) {
+      xString += "<li> <a href='" + value.href + "'>" + value.title
+       + "</a> </li>"
+    });
+
+    xString += "</ul> </div> <div class='column'> <h3> Copyright </h3> <ul> <li> " + obj.copyright.html + "</div>"
+
+    document.body.appendChild(masterEl);
+
+    $("footer").html(xString);
   }
 
 }
