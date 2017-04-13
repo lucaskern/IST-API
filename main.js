@@ -11,6 +11,7 @@ const app = {
     this.nav();
     this.getData("about");
     
+    //flowtype plugin init
     $('body').flowtype();
     $('body').flowtype({
       minimum: 500,
@@ -19,6 +20,9 @@ const app = {
       maxFont: 40,
       fontRatio: 60
     });
+    
+    //scroll reveal plugin init
+    window.sr = ScrollReveal();
 
     //this.getData("degrees");
     //
@@ -69,7 +73,7 @@ const app = {
       url: url,
       data: null,
       success: function(obj) {
-        console.log("obj stringified = " + JSON.stringify(obj));
+        //console.log("obj stringified = " + JSON.stringify(obj));
         switch (key) {
           case "about":
             thisRef.about(obj);
@@ -175,7 +179,7 @@ const app = {
       let uniqueID = value.degreeName.replace(/\s/g, '');
       
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
       xStr += '</div>';
       
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
@@ -212,7 +216,7 @@ const app = {
       let uniqueID = value.degreeName.replace(/\s/g, '');
       
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
       xStr += '</div>';
       
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
@@ -250,8 +254,8 @@ const app = {
     $.each(obj.UgMinors, function(key, value) {
       let uniqueID = value.name.replace(/\s/g, '');
 
-      xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '<div class="grid-box"> <div class="grid-box-content"> ';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Course List </h3>';
@@ -260,7 +264,7 @@ const app = {
         xStr += '<p> ' + value + '</p>';
       });
 
-      xStr += '</div>'
+      xStr += '</div> </div>'
 
 
     });
@@ -383,6 +387,8 @@ const app = {
 
     $('#map-cont').html(x);
     $(masterEl).wrap( "<div class='map-cont-wrapper'></div>" );
+    
+    //sr.reveal('#map-cont',{ duration: 1000 });
 
     this.getData("people");
   },
@@ -433,7 +439,7 @@ const app = {
       let uniqueID = value.areaName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.areaName + '</a> </span>';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.areaName + '">' + value.areaName + '</a> </span>';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
@@ -462,7 +468,7 @@ const app = {
       let uniqueID = value.facultyName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.facultyName + '</a> </span>';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.facultyName + '">' + value.facultyName + '</a> </span>';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
@@ -495,14 +501,14 @@ const app = {
       switch (value.title) {
         case "Study Abroad":
           xStr += '<div class="grid-box">';
-          xStr += '<a href="#" data-featherlight="#resource-study-abroad">' + value.title + '</a>';
+          xStr += '<span> <a href="#" data-featherlight="#resource-study-abroad" data-hover="' + value.title + '">' + value.title + '</a> </span>';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-study-abroad">  <h2> Study Abroad </h2> <p>' + value.description + '</p> </div>';
           break;
         case "Advising":
           xStr += '<div class="grid-box">';
-          xStr += '<a href="#" data-featherlight="#resource-advising">' + value.title + '</a>';
+          xStr += '<span> <a href="#" data-featherlight="#resource-advising" data-hover="' + value.title + '">' + value.title + '</a> </span>';
           xStr += '</div>';
 
           let academicAdv = value.academicAdvisors;
@@ -522,14 +528,14 @@ const app = {
           break;
         case "Tutors / Lab Information":
           xStr += '<div class="grid-box">';
-          xStr += '<a href="#" data-featherlight="#resource-lab">' + value.title + '</a>';
+          xStr += '<span> <a href="#" data-featherlight="#resource-lab" data-hover="' + value.title + '">' + value.title + '</a> </span>';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-lab">  <h2> Tutors/Lab Information </h2> <p>' + value.description + '</p> <p> View schedule: <strong>' + value.tutoringLabHoursLink + '</strong> </p> </div>';
           break;
         case "Student Ambassador Information & Application":
           xStr += '<div class="grid-box">';
-          xStr += '<a href="#" data-featherlight="#resource-ambassadors">' + value.title + '</a>';
+          xStr += '<span> <a href="#" data-featherlight="#resource-ambassador" data-hover="' + value.title + '">' + value.title + '</a> </span>';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" tabindex="-1" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '" />';
@@ -543,7 +549,7 @@ const app = {
           break;
           case "Coop-Enrollment":
             xStr += '<div class="grid-box">';
-            xStr += '<a href="#" data-featherlight="#resource-coop">' + value.title + '</a>';
+            xStr += '<span> <a href="#" data-featherlight="#resource-coop" data-hover="' + value.title + '">' + value.title + '</a> </span>';
             xStr += '</div>';
 
             xStr += '<div class="lightbox" id="resource-coop">  <h2> Co-op Information </h2>';
@@ -559,7 +565,7 @@ const app = {
 
       if (key == "forms") {
         xStr += '<div class="grid-box">';
-        xStr += '<a href="#" data-featherlight="#resource-forms">' + key + '</a>';
+        xStr += '<span> <a href="#" data-featherlight="#resource-forms" data-hover="Forms">Forms</a> </span>';
         xStr += '</div>';
 
         xStr += '<div class="lightbox" id="resource-forms">  <h2> Forms </h2>';
