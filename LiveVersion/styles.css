@@ -1,0 +1,547 @@
+/* Featherlight */
+
+.lightbox {
+  display: none;
+}
+
+.lightbox h2 {
+  text-align: center;
+  color: black;
+}
+
+
+/* Generic */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: sans-serif;
+  color: black;
+}
+
+.overflow {
+  overflow: auto;
+  width: 100%;
+}
+
+
+/*
+.break-long-words {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+  white-space:normal;
+}
+*/
+
+.cont-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.grid-box {
+  
+}
+
+.grid-box a {
+  font-size: 1em;
+  font-weight: 800;
+  text-decoration: none;
+  color: white;
+}
+
+.grid-box span {
+  
+}
+
+/*
+.grid-box {
+  width: 25%;
+  padding: 10px;
+  height: 200px;
+  line-height: 95px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.grid-box span {
+  display: inline-block;
+  line-height: 20px;
+  vertical-align: middle;
+  color: #4B4B4B;
+}
+
+.grid-box a {
+  font-size: 1em;
+  font-weight: 800;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.grid-box a::before {
+  color: #fff;
+  content: attr(data-hover);
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  width: 24%;
+}
+
+.grid-box a:hover::before,
+.grid-box a:focus::before {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0;
+}
+*/
+
+.container {
+  width: 70%;
+  background: #eee;
+  margin: 10px auto;
+  position: relative;
+  text-align: center;
+  overflow: auto;
+}
+
+
+/* Nav */
+
+nav {
+  display: none;
+}
+
+
+/* About */
+
+.about-cont-wrapper {
+  width: 100%;
+  background-color: #ee4035;
+  padding: 10px;
+  height: 800px;
+}
+
+#about-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
+
+/* Undergrad Degrees */
+
+.degree-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 40px 10px 40px 10px;
+}
+
+#degree-cont {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#degree-cont .grid-box {
+  width: 32%;
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#degree-cont .grid-box a {
+  font-size: 1em;
+  padding: 10px;
+}
+
+
+/* Grad Degrees */
+
+.gDegree-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#gDegree-cont {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#gDegree-cont .grid-box {
+  width: 32%;
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#gDegree-cont .grid-box a {
+  font-size: 1em;
+}
+
+
+/* Minors */
+
+.minor-cont-wrapper {
+  width: 100%;
+  background-color: #f37736;
+  padding: 40px 10px 40px 10px;
+}
+
+#minor-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#minor-cont .grid-box {
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#minor-cont .grid-box a {
+  font-size: 1em;
+}
+
+
+/* Employment */
+
+.employment-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#employment-cont {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+#employment {
+  overflow: hidden;
+}
+
+
+/* Map */
+
+.map-cont-wrapper {
+  width: 100%;
+  background-color: #fdf498;
+  padding: 40px 10px 40px 10px;
+}
+
+#map-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+#map-cont p {
+  text-align: center;
+}
+
+iframe {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#map-iframe {
+  border: none;
+  display: block;
+  width: 80%;
+  height: 600px;
+  margin: 0 auto;
+}
+
+#StudentsMap {
+  overflow: visible;
+}
+
+
+/* People */
+
+.people-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 40px 10px 40px 10px;
+}
+
+#people-cont {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+.fac-indv {
+  width: 25%;
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+/* Research Area */
+
+.researchArea-cont-wrapper {
+  width: 100%;
+  background-color: #7bc043;
+  padding: 40px 10px 40px 10px;
+}
+
+#researchArea-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+#researchArea-cont .grid-box {
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+
+/* Research Faculty */
+
+.researchFac-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+#researchFac-cont {
+  border: 0px solid black;
+  background-color: #6699ff;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#researchFaculty-cont .grid-box {
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+
+/* Resources */
+
+.resources-cont-wrapper {
+  width: 100%;
+  background-color: #0392cf;
+  padding: 40px 10px 40px 10px;
+}
+
+#resources-cont {
+  border: 0px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+#resources-cont .grid-box {
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#resources-cont p {
+  text-align: center;
+}
+
+#resource-ambassadors img {
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* footer */
+
+footer {
+  background-color: black;
+  width: 100%;
+  overflow: auto;
+}
+
+footer .column {
+  width: 33.333%;
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer a,
+footer h3 {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+/*#degree-cont, #minor-cont, #employment-cont, #people-cont {
+  border: 3px solid black;
+  background-color: #81A4CD;
+  margin-bottom: 20px;
+  overflow: auto;
+}*/
+
+#about {}
+
+#degrees div {
+  margin-bottom: 20px;
+}
+
+#uGrad {
+  background-color: lightgreen;
+  margin: 0px auto;
+}
+
+h1,
+.center {
+  text-align: center;
+}
+
+.uDegree,
+.gDegree {
+  padding: 10px;
+  width: 33.333%;
+  float: left;
+  box-sizing: border-box;
+}
+
+.uMinor,
+.emp-stat-sec,
+.resource {
+  padding: 10px;
+  margin: 1%;
+  float: left;
+  width: 22.75%;
+  min-height: 200px;
+  background-color: lightblue;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.resource {
+  width: 25%;
+}
+
+.uMinor h2 {
+  text-align: center;
+}
+
+.uMinor p {
+  display: none;
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  /* Styles */
+}
+
+
+/* Smartphones (landscape) ----------- */
+
+@media only screen and (min-width: 321px) {
+  /* Styles */
+}
+
+
+/* Smartphones (portrait) ----------- */
+
+@media only screen and (max-width: 320px) {
+  /* Styles */
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  /* Styles */
+}
+
+
+/* iPads (landscape) ----------- */
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Styles */
+}
+
+
+/* iPads (portrait) ----------- */
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  /* Styles */
+}
+
+
+/* Desktops and laptops ----------- */
+
+@media only screen and (min-width: 1224px) {
+  /* Styles */
+  .degrees-cont-wrapper,
+  .minor-cont-wrapper,
+  .employment-cont-wrapper,
+  .map-cont-wrapper,
+  .resources-cont-wrapper {
+    height: 800px;
+  }
+  #degrees-cont,
+  #minor-cont,
+  #employment-cont,
+  #map-cont,
+  #resources-cont {
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+  }
+  .container {
+    width: 80%;
+    padding: 10px;
+  }
+}
+
+
+/* Large screens ----------- */
+
+@media only screen and (min-width: 1824px) {
+  /* Styles */
+}
