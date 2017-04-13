@@ -1,7 +1,7 @@
 $(document).ready(function () {
-  
+
   nav();
-  
+
  /* about();
   //degrees();
   minors();
@@ -11,30 +11,30 @@ $(document).ready(function () {
   researchArea();
   researchFaculty();
   resources();*/
-  
-  //footer(); 
+
+  //footer();
 });
 
 function nav() {
     let masterEl = document.createElement("nav");
     masterEl.id = "menu";
-    
+
     let xStr = '<ul id="menu"><li><a href="#about">About</a></li><li><a href="#degrees">Degrees</a></li><li><a href="#minors">Minors</a></li><li><a href="#employment">Employment</a></li> <li><a href="#map">Map</a></li><li><a href="#people">People</a></li><li><a href="#research">Research</a></li><li><a href="#resources">Resources</a></li> </ul>'
-    
+
     //append master to body
     document.body.appendChild(masterEl);
-    
+
     $('#menu').html(xStr);
-    
+
     $('nav').slicknav();
-    
-    $("nav li a").click(function(e) { 
+
+    $("nav li a").click(function(e) {
       let spot = $(this).attr('href');
       spot = spot.replace('#', '');
       console.log(spot);
-      scrollToAnchor(spot);       
+      scrollToAnchor(spot);
     });
-  
+
     about();
 }
 
@@ -63,9 +63,11 @@ function about() {
     });
     // to access the OriDomi instance at the top of the jQuery selection directly:
     var folded = $folded.oriDomi(true);
+
+    degrees();
   });
-  
-  degrees();
+
+
 }
 
 function degrees() {
@@ -82,29 +84,29 @@ function degrees() {
     //generate undergrad boxes
     $.each(obj.undergraduate, function(key, value) {
       let uniqueID = value.degreeName.replace(/\s/g, '');
-      
+
       xStr += '<div class="grid-box">';
       xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
       xStr += '</div>';
-      
+
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
 
       $.each(value.concentrations, function(key, value) {
         xStr += '<p> ' + value + '</p>';
       });
-      
+
       xStr += "</div>"
     });
-    
+
     xStr += "</div>";
 
     document.body.appendChild(masterEl);
 
-    $("#degree-cont").html(xStr); 
+    $("#degree-cont").html(xStr);
     $(masterEl).wrap( "<div class='degree-cont-wrapper'></div>" );
-    
+
     //Now grad --------------------------
-    
+
     //create master container with id degrees
     masterEl = document.createElement("div");
     $(masterEl).attr('id', 'gDegree-cont');
@@ -116,35 +118,37 @@ function degrees() {
 
     //generate undergrad boxes
     $.each(obj.graduate, function(key, value) {
-      
+
       if (value.description != null) {
       let uniqueID = value.degreeName.replace(/\s/g, '');
-      
+
       xStr += '<div class="grid-box">';
       xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
       xStr += '</div>';
-      
+
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
 
       $.each(value.concentrations, function(key, value) {
         xStr += '<p> ' + value + '</p>';
       });
-      
+
       xStr += "</div>"
       } else {
-        
+
       }
     });
-    
+
     xStr += "</div>";
 
     document.body.appendChild(masterEl);
 
-    $("#gDegree-cont").html(xStr); 
+    $("#gDegree-cont").html(xStr);
     $(masterEl).wrap( "<div class='gDegree-cont-wrapper'></div>" );
+
+    minors();
   });
-  
-  minors();
+
+
 }
 
 function minors() {
@@ -161,8 +165,8 @@ function minors() {
     $.each(obj.UgMinors, function(key, value) {
       let uniqueID = value.name.replace(/\s/g, '');
 
-      xStr += '<div class="grid-box"> <div class="grid-box-content"> ';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+      xStr += '<div class="grid-box">';
+      xStr += '<a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a>';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Course List </h3>';
@@ -171,17 +175,19 @@ function minors() {
         xStr += '<p> ' + value + '</p>';
       });
 
-      xStr += '</div> </div>'
+      xStr += '</div>'
     });
 
     document.body.appendChild(masterEl);
 
     $("#minor-cont").html(xStr);
     $(masterEl).wrap( "<div class='minor-cont-wrapper'></div>" );
-    
+
+
+    employment();
   });
-  
-  employment();
+
+
 }
 
 function employment() {
@@ -197,16 +203,16 @@ function employment() {
     let titleE = document.createElement("h1");
     titleE.appendChild(titleN);
     statsEl.appendChild(titleE);
-    
-    
-    
+
+
+
     //generate undergrad boxes
     $.each(obj.introduction.content, function(key, value) {
       //console.log(value.title);
 
       let uMinor = document.createElement("div");
       $(uMinor).addClass("emp-sec center");
-      
+
       //get title
       let titleC = value.title;
       let titleN = document.createTextNode(titleC);
@@ -267,15 +273,17 @@ function employment() {
     document.body.appendChild(masterEl);
 
     $(masterEl).wrap( "<div class='employment-cont-wrapper'></div>" );
-    
+
     let $empOrigami = $('#employment-cont').oriDomi({/* options object */});
     // when using jQuery, iterate OriDomi methods over multiple elements like this:
     $empOrigami.oriDomi('accordion', 11);
     // to access the OriDomi instance at the top of the jQuery selection directly:
     let empOrigami = $empOrigami.oriDomi(true);
+
+    map();
   });
-  
-  map();
+
+
 }
 
 function map() {
@@ -291,7 +299,7 @@ function map() {
 
     $('#map-cont').html(x);
     $(masterEl).wrap( "<div class='map-cont-wrapper'></div>" );
-  
+
   people();
 }
 
@@ -324,9 +332,11 @@ function people() {
 
     $('#people-cont').html(xStr); $(masterEl).wrap( "<div class='people-cont-wrapper'></div>" );
 
+
+    researchArea();
   });
-  
-  researchArea();
+
+
 }
 
 function researchArea() {
@@ -354,9 +364,11 @@ function researchArea() {
     document.body.appendChild(masterEl);
 
     $('#researchArea-cont').html(xStr); $(masterEl).wrap( "<div class='researchArea-cont-wrapper'></div>" );
+
+    researchFaculty();
   });
-  
-  researchFaculty();
+
+
 }
 
 function researchFaculty() {
@@ -384,9 +396,11 @@ function researchFaculty() {
     document.body.appendChild(masterEl);
 
     $('#researchFaculty-cont').html(xStr); $(masterEl).wrap( "<div class='researchFac-cont-wrapper'></div>" );
+
+    resources();
   });
-  
-  resources();
+
+
 }
 
 function resources() {
@@ -489,9 +503,11 @@ function resources() {
     document.body.appendChild(masterEl);
 
     $('#resources-cont').html(xStr); $(masterEl).wrap( "<div class='resources-cont-wrapper'></div>" );
+
+    footer();
   });
-  
-  footer();
+
+
 }
 
 function footer() {
