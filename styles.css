@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6, p, a {
   padding: 10px;
 }
 
-.grid-box {
+.grid-box2 {
   text-align: center;
   width: 22.75%;
   height: 200px;
@@ -42,6 +42,16 @@ h1, h2, h3, h4, h5, h6, p, a {
   box-sizing: border-box;
   overflow: hidden;
   display: inline-block;
+}
+
+.grid-box {
+  line-height: 200px;
+  background: green;
+  height: 200px;
+  width: 25%;
+  display:inline-block;
+  margin: 10px;
+  overflow: hidden;
 }
 
 .grid-box span {
@@ -60,18 +70,26 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .container {
-  width: 100%;
-  margin: 0 auto 20px auto;
+  width: 70%;
+  background: #eee;
+  margin: 10px auto;
+  position: relative;
+  text-align:center;
   overflow: auto;
 }
 
 
+/* Nav */
+
+nav {
+  display: none;
+}
 
 /* About */
 
 .about-cont-wrapper {
   width: 100%;
-  background-color: #6699ff;
+  background-color: #ee4035;
   padding: 10px;
   height: 800px;
 }
@@ -80,33 +98,71 @@ h1, h2, h3, h4, h5, h6, p, a {
   border: 0px solid black;
   background-color: white;
   margin-bottom: 20px;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   top: 50%;
   transform: perspective(1px) translateY(-50%);
 }
 
-/* Degrees */
+/* Undergrad Degrees */
 
 .degree-cont-wrapper {
+  width: 100%;
+  background-color: white;
+  padding: 40px 10px 40px 10px;
+}
+
+#degree-cont {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+#degree-cont .grid-box {
+  width: 32%;
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#degree-cont .grid-box a {
+  font-size: 1em;
+  padding: 10px;
+}
+
+/* Grad Degrees */
+
+.gDegree-cont-wrapper {
   width: 100%;
   background-color: white;
   padding: 10px;
 }
 
-#degree-cont {
-  border: 0px solid black;
-  background-color: #6699ff;
+#gDegree-cont {
+  border: 2px solid black;
+  background-color: white;
   margin-bottom: 20px;
   overflow: auto;
+}
+
+#gDegree-cont .grid-box {
+  width: 32%;
+  background-color: green;
+  margin: 10px;
+  padding: 10px;
+}
+
+#gDegree-cont .grid-box a {
+  font-size: 1em;
 }
 
 /* Minors */
 
 .minor-cont-wrapper {
   width: 100%;
-  background-color: #6699ff;
-  padding: 10px;
+  background-color: #f37736;
+  padding: 40px 10px 40px 10px;
 }
 
 #minor-cont {
@@ -135,18 +191,22 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 #employment-cont {
-  border: 0px solid black;
-  background-color: #6699ff;
+  border: 2px solid black;
+  background-color: white;
   margin-bottom: 20px;
-  overflow: auto;
+  overflow: hidden;
+}
+
+#employment {
+  overflow: hidden;
 }
 
 /* Map */
 
 .map-cont-wrapper {
   width: 100%;
-  background-color: #6699ff;
-  padding: 10px;
+  background-color: #fdf498;
+  padding: 40px 10px 40px 10px;
 }
 
 #map-cont {
@@ -183,12 +243,12 @@ iframe {
 .people-cont-wrapper {
   width: 100%;
   background-color: white;
-  padding: 10px;
+  padding: 40px 10px 40px 10px;
 }
 
 #people-cont {
-  border: 0px solid black;
-  background-color: #6699ff;
+  border: 2px solid black;
+  background-color: white;
   margin-bottom: 20px;
   overflow: auto;
 }
@@ -204,8 +264,8 @@ iframe {
 
 .researchArea-cont-wrapper {
   width: 100%;
-  background-color: #6699ff;
-  padding: 10px;
+  background-color: #7bc043;
+  padding: 40px 10px 40px 10px;
 }
 
 #researchArea-cont {
@@ -214,17 +274,6 @@ iframe {
   margin-bottom: 20px;
   overflow: auto;
   margin: 0 auto;
-}
-
-.research-area {
-  padding: 10px;
-  margin: 1%;
-  float: left;
-  width: 100%%;
-  max-height: 300px;
-  background-color: lightblue;
-  box-sizing: border-box;
-  overflow:scroll;
 }
 
 #researchArea-cont .grid-box{
@@ -258,8 +307,8 @@ iframe {
 
 .resources-cont-wrapper {
   width: 100%;
-  background-color: #6699ff;
-  padding: 10px;
+  background-color: #0392cf;
+  padding: 40px 10px 40px 10px;
 }
 
 #resources-cont {
@@ -382,6 +431,7 @@ and (min-width : 321px) {
 @media only screen
 and (max-width : 320px) {
 /* Styles */
+  
 }
 
 /* iPads (portrait and landscape) ----------- */

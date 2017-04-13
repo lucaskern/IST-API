@@ -1,11 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 $( document ).ready(function() {
-  $(".uMinor").click(function() {
-    $(".desc").toggle();
-    console.log("clicked");
-  });
 
   $('[id*="cont"]').addClass( "container" );
+  
+  
 
   console.log("jQuery loaded");
 });
@@ -40,9 +38,19 @@ const app = {
     console.log("app.main.init() called");
     // initialize properties
 
+    this.nav();
     this.getData("about");
+    
+    $('body').flowtype();
+    $('body').flowtype({
+      minimum: 500,
+      maximum: 1200,
+      minFont: 12,
+      maxFont: 40,
+      fontRatio: 60
+    });
 
-    // this.getData("degrees");
+    //this.getData("degrees");
     //
     // this.getData("minors");
     //
@@ -130,13 +138,35 @@ const app = {
     });
   },
 
+  nav() {
+    let thisRef = this;
+    let masterEl = document.createElement("nav");
+    masterEl.id = "menu";
+    
+    let xStr = '<ul id="menu"><li><a href="#about">About</a></li><li><a href="#degrees">Degrees</a></li><li><a href="#minors">Minors</a></li><li><a href="#employment">Employment</a></li> <li><a href="#map">Map</a></li><li><a href="#people">People</a></li><li><a href="#research">Research</a></li><li><a href="#resources">Resources</a></li> </ul>'
+    
+    //append master to body
+    document.body.appendChild(masterEl);
+    
+    $('#menu').html(xStr);
+    
+    $('nav').slicknav();
+    
+    $("nav li a").click(function(e) { 
+      let spot = $(this).attr('href');
+      spot = spot.replace('#', '');
+      console.log(spot);
+      thisRef.scrollToAnchor(spot);       
+    });
+  },
+  
   //generate about section
   about(obj) {
     let masterEl = document.createElement("div");
     masterEl.id = "about-cont";
     $(masterEl).addClass("container");
 
-    let x = "<h1>" + obj.title + "</h2>";
+    let x = "<a name='about'> </a> <h1>" + obj.title + "</h2>";
     x += "<p>" + obj.description + "</p>";
     x += "<p id='quote'>" + obj.quote + "</p>";
     x += "<h3> - " + obj.quoteAuthor + "</h3>";
@@ -147,6 +177,16 @@ const app = {
     $('#about-cont').html(x);
     $(masterEl).wrap( "<div class='about-cont-wrapper'></div>" );
 
+    var $folded = $('#about-cont').oriDomi({speed: 1200});
+    // when using jQuery, iterate OriDomi methods over multiple elements like this:
+    $folded.oriDomi('accordion', 50, function(event, instance) {
+    // arguments are the transition event and the OriDomi instance
+      
+     $folded.oriDomi('accordion', 0);
+    });
+    // to access the OriDomi instance at the top of the jQuery selection directly:
+    var folded = $folded.oriDomi(true);
+    
     this.getData("degrees");
   },
 
@@ -158,25 +198,71 @@ const app = {
 
     let xStr = '';
 
-    xStr += " <h1> Our UnderGraduate Degrees </h1>";
+    xStr += "<a name='degrees'> </a> <h1> Our UnderGraduate Degrees </h1>";
 
     //generate undergrad boxes
     $.each(obj.undergraduate, function(key, value) {
-      xStr += "<div class='uDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
-    });
+      let uniqueID = value.degreeName.replace(/\s/g, '');
+      
+      xStr += '<div class="grid-box">';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '</div>';
+      
+      xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
 
-    //generate undergrad boxes
-    $.each(obj.graduate, function(key, value) {
-      if (value.description != null) {
-        xStr += "<div class='gDegree'> <h2> " + value.title + "</h2> <p> " + value.description + "</p> </div>";
-      } else {
-        xStr += "<div class='certs overflow'> <h2> " + value.degreeName + "</h2> <p> " + value.availableCertificates + "</p> </div>";
-      }
+      $.each(value.concentrations, function(key, value) {
+        xStr += '<p> ' + value + '</p>';
+      });
+      
+      xStr += "</div>"
     });
+    
+    xStr += "</div>";
 
     document.body.appendChild(masterEl);
 
-    $("#degree-cont").html(xStr); $(masterEl).wrap( "<div class='degree-cont-wrapper'></div>" );
+    $("#degree-cont").html(xStr); 
+    $(masterEl).wrap( "<div class='degree-cont-wrapper'></div>" );
+    
+    //Now grad --------------------------
+    
+    //create master container with id degrees
+    masterEl = document.createElement("div");
+    $(masterEl).attr('id', 'gDegree-cont');
+    $(masterEl).addClass("container");
+
+    xStr = '';
+
+    xStr += " <h1> Our Graduate Degrees </h1>";
+
+    //generate undergrad boxes
+    $.each(obj.graduate, function(key, value) {
+      
+      if (value.description != null) {
+      let uniqueID = value.degreeName.replace(/\s/g, '');
+      
+      xStr += '<div class="grid-box">';
+      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '">' + value.title + '</a> </span>';
+      xStr += '</div>';
+      
+      xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
+
+      $.each(value.concentrations, function(key, value) {
+        xStr += '<p> ' + value + '</p>';
+      });
+      
+      xStr += "</div>"
+      } else {
+        
+      }
+    });
+    
+    xStr += "</div>";
+
+    document.body.appendChild(masterEl);
+
+    $("#gDegree-cont").html(xStr); 
+    $(masterEl).wrap( "<div class='gDegree-cont-wrapper'></div>" );
 
     this.getData("minors");
   },
@@ -188,7 +274,7 @@ const app = {
 
     let xStr = '';
 
-    xStr += " <h1> Our UnderGraduate Minors </h1>";
+    xStr += "<a name='minors'> </a> <h1> Our UnderGraduate Minors </h1>";
 
     //generate undergrad boxes
     $.each(obj.UgMinors, function(key, value) {
@@ -234,14 +320,16 @@ const app = {
     let titleE = document.createElement("h1");
     titleE.appendChild(titleN);
     statsEl.appendChild(titleE);
-
+    
+    
+    
     //generate undergrad boxes
     $.each(obj.introduction.content, function(key, value) {
       //console.log(value.title);
 
       let uMinor = document.createElement("div");
       $(uMinor).addClass("emp-sec center");
-
+      
       //get title
       let titleC = value.title;
       let titleN = document.createTextNode(titleC);
@@ -302,6 +390,12 @@ const app = {
     document.body.appendChild(masterEl);
 
     $(masterEl).wrap( "<div class='employment-cont-wrapper'></div>" );
+    
+    let $empOrigami = $('#employment-cont').oriDomi({/* options object */});
+    // when using jQuery, iterate OriDomi methods over multiple elements like this:
+    $empOrigami.oriDomi('accordion', 11);
+    // to access the OriDomi instance at the top of the jQuery selection directly:
+    let empOrigami = $empOrigami.oriDomi(true);
 
     this.map();
   },
@@ -311,7 +405,7 @@ const app = {
     masterEl.id = "map-cont";
     $(masterEl).addClass("container");
 
-    let x = "<h1> Where Our Students Work </h1> <p> Click a marker to learn more about the jobs at that location </p>";
+    let x = "<a name='map'> </a> <h1> Where Our Students Work </h1> <p> Click a marker to learn more about the jobs at that location </p>";
     x += "<iframe id='map-iframe' src='https://ist.rit.edu/api/map/' scrolling='no'> <p>Your browser does not showing this map. Obviously you are using an old browser. </p> </iframe>"
 
     //append master to body
@@ -331,7 +425,7 @@ const app = {
 
     let xStr = '';
 
-    xStr += "<h1> " + obj.title + "</h1>";
+    xStr += "<a name='people'> </a><h1> " + obj.title + "</h1>";
 
     $.each(obj.faculty, function(key, value) {
 
@@ -362,7 +456,7 @@ const app = {
 
     let xStr = '';
 
-    xStr += "<h1> Research By Area </h1>";
+    xStr += "<a name='research'> </a><h1> Research By Area </h1>";
 
     $.each(obj.byInterestArea, function(key, value) {
 
@@ -422,7 +516,7 @@ const app = {
 
     let xStr = '';
 
-    xStr += "<h1>" + obj.title + "</h1> <p> " + obj.subTitle + "</p>";
+    xStr += "<a name='resources'> </a> <h1>" + obj.title + "</h1> <p> " + obj.subTitle + "</p>";
 
     $.each(obj, function(key, value) {
 
@@ -518,7 +612,6 @@ const app = {
   },
 
   footer(obj) {
-    console.log("yo");
     let masterEl = document.createElement("footer");
     masterEl.id = "footer-cont";
 
@@ -538,7 +631,12 @@ const app = {
     document.body.appendChild(masterEl);
 
     $("footer").html(xString);
-  }
+  },
+  
+ scrollToAnchor(aid){
+    var aTag = $("a[name='"+ aid +"']");
+    $('html,body').animate({scrollTop: aTag.offset().top},2000, 'easeInOutSine');
+},
 
 }
 module.exports = app;
