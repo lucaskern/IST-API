@@ -53,67 +53,35 @@ a {
 }
 
 .grid-box {
-  float: left;
+  display: inline-block;
+   width: 25%;
+  height: 250px;
+   background-color:#0392cf;
+   position: relative;
+   box-sizing: border-box;
+   border: 1px solid white;
+  position: relative;
+  
+  overflow: auto;
 }
 
 .grid-box a {
-  font-size: 1em;
-  font-weight: 800;
   text-decoration: none;
+  font-weight: 800;
   color: white;
-}
-
-.grid-box span {
-  padding: 10px;
-  background-color: green;
-}
-
-/*
-.grid-box {
-  width: 25%;
-  padding: 10px;
-  height: 200px;
-  line-height: 95px;
-  margin: 10px;
-  display: inline-block;
-}
-
-.grid-box span {
-  display: inline-block;
-  line-height: 20px;
-  vertical-align: middle;
-  color: #4B4B4B;
-}
-
-.grid-box a {
   font-size: 1em;
-  font-weight: 800;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.2);
-  display: inline-block;
-}
-
-.grid-box a::before {
-  color: #fff;
-  content: attr(data-hover);
   position: absolute;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-  transition: transform 0.3s, opacity 0.3s;
-  width: 24%;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right:0;
+  margin: auto;
+  width:80%;
+  height: 30%;
 }
-
-.grid-box a:hover::before,
-.grid-box a:focus::before {
-  -webkit-transform: scale(0.9);
-  -moz-transform: scale(0.9);
-  transform: scale(0.9);
-  opacity: 0;
-}
-*/
 
 .container {
-  width: 70%;
+  width: 100%;
   background: #eee;
   margin: 10px auto;
   position: relative;
@@ -165,16 +133,11 @@ nav {
 }
 
 #degree-cont .grid-box {
-  width: 33.3333%;
-  float: left;
 
-  padding: 10px 0px;
-  font-size: 1em;
 }
 
 #degree-cont .grid-box a {
-  font-size: 1em;
-  padding: 10px;
+
 }
 
 
@@ -194,16 +157,9 @@ nav {
 }
 
 #gDegree-cont .grid-box {
-  width: 33.3333%;
-  float: left;
-
-  padding: 10px 0px;
-  font-size: 1em;
 }
 
 #gDegree-cont .grid-box a {
-  font-size: 1em;
-  padding: 10px;
 }
 
 
@@ -213,7 +169,6 @@ nav {
   width: 100%;
   background-color: #f37736;
   padding: 40px 10px 40px 10px;
-  height: 1200px;
 }
 
 #minor-cont {
@@ -224,25 +179,9 @@ nav {
 }
 
 #minor-cont .grid-box {
-  display: inline-block;
-   height: 170px;
-   width: 25%;
-   background-color:blue;
-   position: relative;
-   box-sizing: border-box;
-   border: 1px solid white;
 }
 
 #minor-cont .grid-box a {
-  color: white;
-  font-size: 1em;
-  position: absolute;
-  top: 40%;
-  width:80%;
-  overflow: hidden;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
 }
 
 
@@ -263,6 +202,15 @@ nav {
 
 #employment {
   overflow: hidden;
+}
+
+#employment-cont .grid-box {
+  color: white;
+  padding: 10px;
+}
+
+.grid-box p, .grid-box h2 {
+  color: white;
 }
 
 
@@ -314,18 +262,24 @@ iframe {
 
 #people-cont {
   border: 2px solid black;
-  background-color: white;
+  background-color: #ee4035;
   margin-bottom: 20px;
   overflow: auto;
 }
 
 .fac-indv {
+  background-color: white; 
   width: 25%;
   float: left;
   padding: 10px;
   box-sizing: border-box;
+  line-height: 20%;
+  border: 5px solid #ee4035;
 }
 
+.fac-indv img {
+  border: 2px solid black;
+}
 
 /* Research Area */
 
@@ -344,9 +298,6 @@ iframe {
 }
 
 #researchArea-cont .grid-box {
-
-  margin: 10px;
-  padding: 10px;
 }
 
 
@@ -366,9 +317,6 @@ iframe {
 }
 
 #researchFaculty-cont .grid-box {
-
-  margin: 10px;
-  padding: 10px;
 }
 
 
@@ -389,9 +337,7 @@ iframe {
 }
 
 #resources-cont .grid-box {
-
-  margin: 10px;
-  padding: 10px;
+  width: 33.3333%;
 }
 
 #resources-cont p {
@@ -438,7 +384,7 @@ footer h3 {
   overflow: auto;
 }*/
 
-#about {}
+/*#about {}
 
 #degrees div {
   margin-bottom: 20px;
@@ -485,7 +431,7 @@ h1,
 
 .uMinor p {
   display: none;
-}
+}*/
 
 
 /* Smartphones (portrait and landscape) ----------- */
@@ -534,14 +480,14 @@ h1,
 
 @media only screen and (min-width: 1224px) {
   /* Styles */
-  .degrees-cont-wrapper,
+  /*.degrees-cont-wrapper,
   .minor-cont-wrapper,
   .employment-cont-wrapper,
   .map-cont-wrapper,
   .resources-cont-wrapper {
     height: 800px;
-  }
-  #degrees-cont,
+  }*/
+  /*#degrees-cont,
   #minor-cont,
   #employment-cont,
   #map-cont,
@@ -549,7 +495,7 @@ h1,
     position: relative;
     top: 50%;
     transform: perspective(1px) translateY(-50%);
-  }
+  }*/
   .container {
     width: 80%;
     padding: 10px;

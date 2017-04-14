@@ -1,4 +1,14 @@
 $(document).ready(function () {
+  
+  //flowtype plugin init
+    $('body').flowtype();
+    $('body').flowtype({
+      minimum: 500,
+      maximum: 1200,
+      minFont: 12,
+      maxFont: 40,
+      fontRatio: 60
+    });
 
   nav();
 
@@ -86,7 +96,7 @@ function degrees() {
       let uniqueID = value.degreeName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+      xStr += ' <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> ';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
@@ -123,7 +133,7 @@ function degrees() {
       let uniqueID = value.degreeName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+      xStr += ' <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.title + '">' + value.title + '</a> ';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2>' + value.title +  '</h2> <p>' + value.description + '</p> <h3> Concentrations </h3>';
@@ -242,17 +252,17 @@ function employment() {
     $.each(obj.degreeStatistics.statistics, function(key, value) {
       //console.log(value.title);
 
-      let uMinor = document.createElement("div");
-      $(uMinor).addClass("emp-stat-sec");
+      let stat = document.createElement("div");
+      $(stat).addClass("grid-box");
 
       //get title
       let titleC = value.value;
       let titleN = document.createTextNode(titleC);
       let titleE = document.createElement("h2");
-      titleN.value = titleC;
+      titleN.value = titleC;      
       titleE.appendChild(titleN);
 
-      uMinor.appendChild(titleE);
+      stat.appendChild(titleE);
 
       //get desc
       let descriptionC = value.description;
@@ -263,9 +273,9 @@ function employment() {
       descriptionN.value = descriptionC;
       descriptionE.appendChild(descriptionN);
 
-      uMinor.appendChild(descriptionE);
+      stat.appendChild(descriptionE);
 
-      statsEl.appendChild(uMinor);
+      statsEl.appendChild(stat);
     });
 
     masterEl.appendChild(statsEl);
@@ -315,17 +325,19 @@ function people() {
     xStr += "<a name='people'> </a><h1> " + obj.title + "</h1>";
 
     $.each(obj.faculty, function(key, value) {
-
-      xStr += '<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+      xStr += '<a href="#" onclick="getFac(this)" data-username="' + value.username + '" data-featherlight="#' + value.username + '">';
+      xStr += '<div class="fac-indv" data-username="' + value.username + '">';
       xStr += '<h2>' + value.name + '</h2><p>' + value.title + '</p>';
-      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div></a>';
+      xStr += '<div class="lightbox" id="' + value.username + '"> </div> ';
     });
 
     $.each(obj.staff, function(key, value) {
-
-      xStr += '<div class="fac-indv" onclick="getFac(this)" data-username="' + value.username + '">';
+      xStr += '<a href="#" onclick="getStaff(this)" data-username="' + value.username + '" data-featherlight="#' + value.username + '">';
+      xStr += '<div class="fac-indv" data-username="' + value.username + '">';
       xStr += '<h2>' + value.name + '</h2><p>' + value.title + '</p>';
-      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div>';
+      xStr += '<img class="fac-img" src="' + value.imagePath + ' "width=150px; height=150px;/></div></a>';
+      xStr += '<div class="lightbox" id="' + value.username + '"> </div> ';
     });
 
     document.body.appendChild(masterEl);
@@ -355,7 +367,7 @@ function researchArea() {
       let uniqueID = value.areaName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.areaName + '">' + value.areaName + '</a> </span>';
+      xStr += ' <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.areaName + '">' + value.areaName + '</a> ';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
@@ -387,7 +399,7 @@ function researchFaculty() {
       let uniqueID = value.facultyName.replace(/\s/g, '');
 
       xStr += '<div class="grid-box">';
-      xStr += '<span> <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.facultyName + '">' + value.facultyName + '</a> </span>';
+      xStr += ' <a href="#" data-featherlight="#' + uniqueID + '" data-hover="' + value.facultyName + '">' + value.facultyName + '</a> ';
       xStr += '</div>';
 
       xStr += '<div class="lightbox" id="' + uniqueID + '">  <h2> Citations </h2> <p>' + value.citations + '</p> </div>';
@@ -421,14 +433,14 @@ function resources() {
       switch (value.title) {
         case "Study Abroad":
           xStr += '<div class="grid-box">';
-          xStr += '<span> <a href="#" data-featherlight="#resource-study-abroad" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+          xStr += ' <a href="#" data-featherlight="#resource-study-abroad" data-hover="' + value.title + '">' + value.title + '</a> ';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-study-abroad">  <h2> Study Abroad </h2> <p>' + value.description + '</p> </div>';
           break;
         case "Advising":
           xStr += '<div class="grid-box">';
-          xStr += '<span> <a href="#" data-featherlight="#resource-advising" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+          xStr += ' <a href="#" data-featherlight="#resource-advising" data-hover="' + value.title + '">' + value.title + '</a> ';
           xStr += '</div>';
 
           let academicAdv = value.academicAdvisors;
@@ -448,14 +460,14 @@ function resources() {
           break;
         case "Tutors / Lab Information":
           xStr += '<div class="grid-box">';
-          xStr += '<span> <a href="#" data-featherlight="#resource-lab" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+          xStr += ' <a href="#" data-featherlight="#resource-lab" data-hover="' + value.title + '">' + value.title + '</a> ';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" id="resource-lab">  <h2> Tutors/Lab Information </h2> <p>' + value.description + '</p> <p> View schedule: <strong>' + value.tutoringLabHoursLink + '</strong> </p> </div>';
           break;
         case "Student Ambassador Information & Application":
           xStr += '<div class="grid-box">';
-          xStr += '<span> <a href="#" data-featherlight="#resource-ambassador" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+          xStr += ' <a href="#" data-featherlight="#resource-ambassador" data-hover="' + value.title + '">' + value.title + '</a> ';
           xStr += '</div>';
 
           xStr += '<div class="lightbox" tabindex="-1" id="resource-ambassadors">  <h2> Student Ambassadors </h2> <img src="' + value.ambassadorsImageSource + '" />';
@@ -469,7 +481,7 @@ function resources() {
           break;
           case "Coop-Enrollment":
             xStr += '<div class="grid-box">';
-            xStr += '<span> <a href="#" data-featherlight="#resource-coop" data-hover="' + value.title + '">' + value.title + '</a> </span>';
+            xStr += ' <a href="#" data-featherlight="#resource-coop" data-hover="' + value.title + '">' + value.title + '</a> ';
             xStr += '</div>';
 
             xStr += '<div class="lightbox" id="resource-coop">  <h2> Co-op Information </h2>';
@@ -485,7 +497,7 @@ function resources() {
 
       if (key == "forms") {
         xStr += '<div class="grid-box">';
-        xStr += '<span> <a href="#" data-featherlight="#resource-forms" data-hover="Forms">Forms</a> </span>';
+        xStr += ' <a href="#" data-featherlight="#resource-forms" data-hover="Forms">Forms</a> ';
         xStr += '</div>';
 
         xStr += '<div class="lightbox" id="resource-forms">  <h2> Forms </h2>';
@@ -539,11 +551,25 @@ function scrollToAnchor(aid){
     $('html,body').animate({scrollTop: aTag.offset().top},2000, 'easeInOutSine');
 }
 
+function getStaff(dom) {
+  myXhr('get', {
+    path: '/people/staff/username=' + $(dom).attr('data-username')}, null).done(function (obj) {
+    $("#" + obj.username).html("");
+    $("#" + obj.username).append("<h2> " + obj.name + "</h2> <p>" + obj.tagline + "</p> <p> " + obj.title + "</p> <ul>" + "<li> Email: " + obj.email + "</li>" + "<li> Phone: " + obj.phone + "</li>" + "<li> Office: " + obj.office + "</li> </ul>");
+    console.log(obj);
+    console.log($(dom).attr('data-username'));
+    console.log('/people/faculty/username=' + $(dom).attr('data-username'));
+  });
+}
+
 function getFac(dom) {
   myXhr('get', {
-    path: '/people/faculty/username=' + $(dom).attr('data-username')
-  }, null).done(function (json) {
-    console.log(json);
+    path: '/people/faculty/username=' + $(dom).attr('data-username')}, null).done(function (obj) {
+    $("#" + obj.username).html("");
+    $("#" + obj.username).append("<h2> " + obj.name + "</h2> <p>" + obj.tagline + "</p> <p> " + obj.title + "</p> <ul>" + "<li> Email: " + obj.email + "</li>" + "<li> Phone: " + obj.phone + "</li>" + "<li> Office: " + obj.office + "</li> </ul>");
+    console.log(obj);
+    console.log($(dom).attr('data-username'));
+    console.log('/people/faculty/username=' + $(dom).attr('data-username'));
   });
 }
 ///////////////////////////////////////////////////
